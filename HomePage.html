@@ -4,58 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Management App</title>
-    <!-- Linking CSS File -->
     <link rel="stylesheet" href="HomePage.css">
-    <!-- Google Fonts -->
+    <script src="HomePage.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- welcome Section -->
-    <div class="welcome">
-        <h1>Welcome, Neva, ready to conquer your day?</h1>
+    <!-- Name Input Section (shown on first visit) -->
+    <div class="name-input-section" id="nameInputSection">
+        <h2>Please enter your name</h2>
+        <input type="text" id="userName" placeholder="Enter your name">
+        <button onclick="saveName()">Start</button>
+    </div>
+
+    <!-- Welcome Section (hidden until name is entered) -->
+    <div class="welcome" id="welcomeSection" style="display: none;">
+        <h1 id="welcomeMessage">Welcome, [Name], ready to conquer your day?</h1>
     </div>
 
     <!-- Main Container -->
-    <div class="container">
+    <div class="container" id="mainContainer" style="display: none;">
         
         <!-- Task Cards Section -->
-        <div class="task-cards">
-            <div class="task-card">
-                <h3>sample for rn</h3>
-                <div class="task-controls">
-                    <span class="priority">High Priority</span>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </div>
-            </div>
-            <div class="task-card">
-                <h3>another sample for rn</h3>
-                <div class="task-controls">
-                    <span class="priority">Medium Priority</span>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </div>
-            </div>
-            <!-- Add more task cards as needed -->
+        <div class="task-cards" id="taskCards">
+            <!-- Tasks will be dynamically added here -->
         </div>
 
         <!-- Daily Focus Section -->
-        <div class="focus-section">
+        <div class="focus-section" id="focusSection">
             <h2>Today's Top Tasks</h2>
-            <ul>
-                <li>bleh</li>
-                <li>bloh</li>
+            <ul id="focusList">
+                <!-- Top tasks will be dynamically added here -->
             </ul>
         </div>
 
     </div>
 
     <!-- Floating Add Task Button -->
-    <button class="add-task-btn">+</button>
+    <button class="add-task-btn" id="addTaskBtn" style="display: none;" onclick="openTaskModal()">+</button>
+
+    <!-- Add Task Modal -->
+    <div class="task-modal" id="taskModal" style="display: none;">
+        <div class="modal-content">
+            <h2>Add New Task</h2>
+            <input type="text" id="newTaskInput" placeholder="Enter task">
+            <select id="taskPriority">
+                <option value="High Priority">High Priority</option>
+                <option value="Medium Priority">Medium Priority</option>
+                <option value="Low Priority">Low Priority</option>
+            </select>
+            <button onclick="addTask()">Add Task</button>
+            <button onclick="closeTaskModal()">Cancel</button>
+        </div>
+    </div>
 
     <!-- Navigation Bar -->
-    <div class="navbar">
+    <div class="navbar" id="navbar" style="display: none;">
         <a href="#">Home</a>
         <a href="#">Tasks</a>
         <a href="#">Calendar</a>
@@ -63,5 +67,6 @@
         <a href="#">Settings</a>
     </div>
 
+    <script src="app.js"></script>
 </body>
 </html>
