@@ -15,7 +15,7 @@ function displayMainApp() {
     const name = localStorage.getItem('userName');
     if (name) {
         document.getElementById('welcomeMessage').innerText = `Bonjour, ${name}, ready to conquer your day?`;
-        document.getElementById('heroSection').style.display = 'block';
+        document.getElementById('welcomeSection').style.display = 'block';
         document.getElementById('mainContainer').style.display = 'block';
         document.getElementById('addTaskBtn').style.display = 'block';
         document.getElementById('navbar').style.display = 'flex';
@@ -34,8 +34,8 @@ function closeTaskModal() {
 
 // Add a new task
 function addTask() {
-     taskName = document.getElementById('newTaskInput').value;
-     priority = document.getElementById('taskPriority').value;
+    const taskName = document.getElementById('newTaskInput').value;
+    const priority = document.getElementById('taskPriority').value;
 
     if (taskName) {
         const taskCards = document.getElementById('taskCards');
