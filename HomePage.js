@@ -1,72 +1,75 @@
-// Save user's name and show welcome message
-function saveName() {
-    const name = document.getElementById('userName').value;
-    if (name) {
-        localStorage.setItem('userName', name);
-        document.getElementById('nameInputSection').style.display = 'none';
-        displayMainApp();
+// Toggle between Sign Up and Login Forms
+function toggleAuthForm() {
+    document.getElementById('signUpForm').style.display = document.getElementById('signUpForm').style.display === 'none' ? 'block' : 'none';
+    document.getElementById('loginForm').style.display = document.getElementById('loginForm').style.display === 'none' ? 'block' : 'none';
+}
+
+// Store user info and display the Welcome Section
+function signUp() {
+    const displayName = document.getElementById('displayName').value;
+    localStorage.setItem('displayName', displayName);
+    showWelcomeSection(displayName);
+}
+
+function logIn() {
+    const loginDisplayName = document.getElementById('loginDisplayName').value;
+    const savedDisplayName = localStorage.getItem('displayName');
+    
+    if (loginDisplayName === savedDisplayName) {
+        showWelcomeSection(loginDisplayName);
     } else {
-        alert('Please enter your name');
+        alert('User not found.');
     }
 }
 
-// Display main app content
-function displayMainApp() {
-    const name = localStorage.getItem('userName');
-    if (name) {
-        document.getElementById('welcomeMessage').innerText = `Bonjour, ${name}, ready to conquer your day?`;
-        document.getElementById('welcomeSection').style.display = 'block';
-        document.getElementById('mainContainer').style.display = 'block';
-        document.getElementById('addTaskBtn').style.display = 'block';
-        document.getElementById('navbar').style.display = 'flex';
-    }
+function showWelcomeSection(displayName) {
+    document.getElementById('authSection').style.display = 'none';
+    document.getElementById('welcomeSection').style.display = 'block';
+    document.getElementById('mainContainer').style.display = 'block';
+    document.getElementById('welcomeMessage').textContent = `Welcome, ${displayName}! Let's organize your day!`;
 }
 
-// Open the task modal
+// Task and Pomodoro Timer Logic
 function openTaskModal() {
-    document.getElementById('taskModal').style.display = 'flex';
+    document.getElementById('taskModal').style.display = 'block';
 }
 
-// Close the task modal
 function closeTaskModal() {
     document.getElementById('taskModal').style.display = 'none';
 }
 
-// Add a new task
 function addTask() {
-    const taskName = document.getElementById('newTaskInput').value;
-    const priority = document.getElementById('taskPriority').value;
-
-    if (taskName) {
-        const taskCards = document.getElementById('taskCards');
-        const focusList = document.getElementById('focusList');
-
-        const taskCard = document.createElement('div');
-        taskCard.classList.add('task-card');
-        taskCard.innerHTML = `
-            <h3>${taskName}</h3>
-            <div class="task-controls">
-                <span class="priority">${priority}</span>
-                <button>Edit</button>
-                <button>Delete</button>
-            </div>
-        `;
-        taskCards.appendChild(taskCard);
-
-        const focusTask = document.createElement('li');
-        focusTask.innerText = taskName;
-        focusList.appendChild(focusTask);
-
-        document.getElementById('newTaskInput').value = '';
-        closeTaskModal();
-    } else {
-        alert('Please enter a task');
-    }
+    const taskInput = document.getElementById('newTaskInput').value;
+    const taskCategory = document.getElementById('taskCategory').value;
+    const taskPriority = document.getElementById('taskPriority').value;
+    // Add task to UI
+    const taskCards = document.getElementById('taskCards');
+    const newTaskCard = document.createElement('div');
+    newTaskCard.className = 'task-card';
+    newTaskCard.innerHTML = `<p>${taskInput} - ${taskCategory} (${taskPriority})</p>`;
+    taskCards.appendChild(newTaskCard);
+    closeTaskModal();
 }
 
-// Load name and tasks on page load
-window.onload = function() {
-    if (localStorage.getItem('userName')) {
-        displayMainApp();
-    }
-};
+// Pomodoro Timer
+let timerInterval;
+function startPomodoro() {
+    let timer = 25 * 60;
+    document.getElementById('pomodoroSection').style.display = 'block';
+    timerInterval = setInterval(() => {
+        let minutes = Math.floor(timer / 60);
+        let seconds = timer % 60;
+        document.getElementById('pomodoroTimer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        timer--;
+        if (timer < 0) clearInterval(timerInterval);
+    }, 1000);
+}
+
+function pauseTimer() {
+    clearInterval(timerInterval);
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    document.getElementById('pomodoroTimer').textContent = '25:00';
+}
