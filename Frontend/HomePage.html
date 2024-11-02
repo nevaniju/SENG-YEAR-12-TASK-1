@@ -9,75 +9,38 @@
 </head>
 <body>
 
-    <!-- Login/Sign Up Section -->
-    <div class="auth-section" id="authSection">
-        <h2>Welcome to Your Task Manager</h2>
-        <div id="signUpForm">
+    <div class="auth-page" id="signUpPage">
+        <img src="Images/logo.png" alt="Task Nest Logo" class="logo">
+
+    <!-- Sign-Up Page -->
+    <div class="auth-page" id="signUpPage">
+        <div class="auth-box">
+            <h2>Welcome to Your Task Manager</h2>
             <h3>Sign Up</h3>
-            <input type="text" id="firstName" placeholder="First Name">
-            <input type="text" id="lastName" placeholder="Last Name">
-            <input type="text" id="displayName" placeholder="Display Name">
-            <input type="password" id="password" placeholder="Password">
+            <input type="text" placeholder="First Name" id="firstName">
+            <input type="text" placeholder="Last Name" id="lastName">
+            <input type="text" placeholder="Display Name" id="displayName">
+            <input type="password" placeholder="Password" id="password">
             <button onclick="signUp()">Sign Up</button>
-            <p>Already have an account? <a href="#" onclick="toggleAuthForm()">Log in</a></p>
+            <p>Already have an account? <span onclick="showLogin()">Log In</span></p>
         </div>
-        <div id="loginForm" style="display: none;">
+    </div>
+
+    <!-- Login Page -->
+    <div class="auth-page" id="loginPage" style="display: none;">
+        <div class="auth-box">
+            <h2>Welcome to Your Task Manager</h2>
             <h3>Log In</h3>
-            <input type="text" id="loginDisplayName" placeholder="Display Name">
-            <input type="password" id="loginPassword" placeholder="Password">
+            <input type="text" placeholder="Display Name" id="loginDisplayName">
+            <input type="password" placeholder="Password" id="loginPassword">
             <button onclick="logIn()">Log In</button>
-            <p>Don't have an account? <a href="#" onclick="toggleAuthForm()">Sign up</a></p>
+            <p>Don't have an account yet? <span onclick="showSignUp()">Sign Up</span></p>
         </div>
     </div>
 
-    <!-- Welcome Section (only shown after login) -->
-    <div class="welcome-section" id="welcomeSection" style="display: none;">
-        <h1 id="welcomeMessage">Welcome, [Display Name]! Let's organize your day!</h1>
-    </div>
-
-    <!-- Main Container -->
-    <div class="container" id="mainContainer" style="display: none;">
-        
-        <!-- Task Controls -->
-        <div class="task-controls">
-            <button onclick="openTaskModal()">Add Task</button>
-            <button onclick="openCategoryModal()">Categorize Tasks</button>
-            <button onclick="startPomodoro()">Start Pomodoro Timer</button>
-        </div>
-
-        <!-- Pomodoro Timer Section -->
-        <div class="pomodoro-section" id="pomodoroSection" style="display: none;">
-            <h2>Pomodoro Timer</h2>
-            <p id="pomodoroTimer">25:00</p>
-            <button onclick="pauseTimer()">Pause</button>
-            <button onclick="resetTimer()">Reset</button>
-            <p>Short Break Timer: <span id="breakTimer">5:00</span></p>
-        </div>
-
-        <!-- Task Cards Section -->
-        <div class="task-cards" id="taskCards">
-            <!-- Tasks will be automatically added here -->
-        </div>
-    </div>
-
-    <!-- Add Task Section -->
-    <div class="task-modal" id="taskModal" style="display: none;">
-        <div class="modal-content">
-            <h2>Add New Task</h2>
-            <input type="text" id="newTaskInput" placeholder="Enter task">
-            <select id="taskCategory">
-                <option value="Work">Work</option>
-                <option value="Personal">Personal</option>
-                <option value="School">School</option>
-            </select>
-            <select id="taskPriority">
-                <option value="High Priority">High Priority</option>
-                <option value="Medium Priority">Medium Priority</option>
-                <option value="Low Priority">Low Priority</option>
-            </select>
-            <button onclick="addTask()">Add Task</button>
-            <button onclick="closeTaskModal()">Cancel</button>
-        </div>
+    <!-- Welcome Section -->
+    <div class="welcome" id="welcomeSection" style="display: none;">
+        <h1 id="welcomeMessage">Welcome, [Name], ready to conquer your day?</h1>
     </div>
 
     <script src="HomePage.js"></script>

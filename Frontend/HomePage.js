@@ -1,75 +1,38 @@
-// Toggle between Sign Up and Login Forms
-function toggleAuthForm() {
-    document.getElementById('signUpForm').style.display = document.getElementById('signUpForm').style.display === 'none' ? 'block' : 'none';
-    document.getElementById('loginForm').style.display = document.getElementById('loginForm').style.display === 'none' ? 'block' : 'none';
+function showLogin() {
+    document.getElementById('signUpPage').style.display = 'none';
+    document.getElementById('loginPage').style.display = 'flex';
 }
 
-// Store user info and display the Welcome Section
+function showSignUp() {
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('signUpPage').style.display = 'flex';
+}
+
 function signUp() {
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
     const displayName = document.getElementById('displayName').value;
-    localStorage.setItem('displayName', displayName);
-    showWelcomeSection(displayName);
-}
+    const password = document.getElementById('password').value;
 
-function logIn() {
-    const loginDisplayName = document.getElementById('loginDisplayName').value;
-    const savedDisplayName = localStorage.getItem('displayName');
-    
-    if (loginDisplayName === savedDisplayName) {
-        showWelcomeSection(loginDisplayName);
+    if (firstName && lastName && displayName && password) {
+        localStorage.setItem('displayName', displayName);
+        document.getElementById('signUpPage').style.display = 'none';
+        document.getElementById('welcomeSection').style.display = 'block';
+        document.getElementById('welcomeMessage').innerText = `Welcome, ${displayName}, ready to conquer your day?`;
     } else {
-        alert('User not found.');
+        alert("Please fill in all fields.");
     }
 }
 
-function showWelcomeSection(displayName) {
-    document.getElementById('authSection').style.display = 'none';
-    document.getElementById('welcomeSection').style.display = 'block';
-    document.getElementById('mainContainer').style.display = 'block';
-    document.getElementById('welcomeMessage').textContent = `Welcome, ${displayName}! Let's organize your day!`;
-}
+function logIn() {
+    const displayName = document.getElementById('loginDisplayName').value;
+    const password = document.getElementById('loginPassword').value;
 
-// Task and Pomodoro Timer Logic
-function openTaskModal() {
-    document.getElementById('taskModal').style.display = 'block';
-}
-
-function closeTaskModal() {
-    document.getElementById('taskModal').style.display = 'none';
-}
-
-function addTask() {
-    const taskInput = document.getElementById('newTaskInput').value;
-    const taskCategory = document.getElementById('taskCategory').value;
-    const taskPriority = document.getElementById('taskPriority').value;
-    // Add task to UI
-    const taskCards = document.getElementById('taskCards');
-    const newTaskCard = document.createElement('div');
-    newTaskCard.className = 'task-card';
-    newTaskCard.innerHTML = `<p>${taskInput} - ${taskCategory} (${taskPriority})</p>`;
-    taskCards.appendChild(newTaskCard);
-    closeTaskModal();
-}
-
-// Pomodoro Timer
-let timerInterval;
-function startPomodoro() {
-    let timer = 25 * 60;
-    document.getElementById('pomodoroSection').style.display = 'block';
-    timerInterval = setInterval(() => {
-        let minutes = Math.floor(timer / 60);
-        let seconds = timer % 60;
-        document.getElementById('pomodoroTimer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-        timer--;
-        if (timer < 0) clearInterval(timerInterval);
-    }, 1000);
-}
-
-function pauseTimer() {
-    clearInterval(timerInterval);
-}
-
-function resetTimer() {
-    clearInterval(timerInterval);
-    document.getElementById('pomodoroTimer').textContent = '25:00';
+    if (displayName === localStorage.getItem('displayName') && password) {
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('welcomeSection').style.display = 'block';
+        document.getElementById('welcomeMessage').innerText = `Welcome, ${displayName}, ready to conquer your day?`;
+    } else {
+        alert("Incorrect Display Name or Password.");
+    }
 }
