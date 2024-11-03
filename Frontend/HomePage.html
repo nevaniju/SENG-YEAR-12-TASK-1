@@ -10,7 +10,7 @@
 <body>
 
     <div class="auth-page" id="signUpPage">
-        <img src="Images/logo.png" alt="Task Nest Logo" class="logo">
+        <img src="#" alt="Task Nest Logo" class="logo">
 
     <!-- Sign-Up Page -->
     <div class="auth-page" id="signUpPage">
@@ -42,6 +42,53 @@
     <div class="welcome" id="welcomeSection" style="display: none;">
         <h1 id="welcomeMessage">Welcome, [Name], ready to conquer your day?</h1>
     </div>
+
+    <div class="home-page">
+        <h1 class="welcome-message">Welcome, <span id="userName"></span>! Ready to smtg ur day?</h1>
+        
+        <div class="goals">
+          <h2>Today's Top 5 Goals</h2>
+          <button class="add-goal-btn" onclick="addGoal()">+</button>
+          <ul id="goalsList"></ul>
+        </div>
+      
+        <div class="add-task-section">
+          <button class="add-task-btn" onclick="showTaskForm()">Add Task</button>
+        </div>
+      
+        <div class="pomodoro">
+          <h2>Pomodoro</h2>
+          <div class="timer">
+            <span id="timerDisplay">25:00</span>
+          </div>
+          <button class="pomodoro-btn" onclick="startPomodoro()">Start</button>
+        </div>
+      </div>
+      
+      <!-- Task Modal -->
+      <div class="modal" id="taskModal">
+        <div class="modal-content">
+          <h3>Add Task</h3>
+          <label>Task Name:</label>
+          <input type="text" id="taskName">
+          <label>Due Date:</label>
+          <input type="date" id="taskDate">
+          <label>Priority:</label>
+          <select id="taskPriority">
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+          <label>Category:</label>
+          <select id="taskCategory">
+            <option value="work">Work</option>
+            <option value="school">School</option>
+            <option value="home">Home</option>
+          </select>
+          <button onclick="addTask()">Add</button>
+          <button onclick="closeTaskForm()">Cancel</button>
+        </div>
+      </div>
 
     <script src="HomePage.js"></script>
 </body>

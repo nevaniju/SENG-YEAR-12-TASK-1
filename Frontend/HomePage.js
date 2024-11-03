@@ -36,3 +36,4 @@ function logIn() {
         alert("Incorrect Display Name or Password.");
     }
 }
+
