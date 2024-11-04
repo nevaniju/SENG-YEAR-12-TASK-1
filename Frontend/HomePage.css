@@ -1,99 +1,135 @@
-/* General Styling */
+/* General Page Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #ffefef;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  body {
+    background-color: #f3e8e5;
+    color: #5d2e2a;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-}
-
-/* Auth Page Styling */
-.auth-page {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    margin-left: 50px;
-}
-
-.auth-box {
-    background-color: #8b3332;
+    overflow: hidden;
+  }
+  
+  /* Container for the Welcome Page */
+  .home-page {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 2rem;
+    width: 90vw;
+    height: 90vh;
     padding: 2rem;
-    width: 400px;
+    color: #5d2e2a;
+  }
+  
+  /* Welcome Message */
+  .welcome-message {
+    grid-column: 1 / -1;
     text-align: center;
-    border-radius: 8px;
-    color: #ffefef;
-    font-family: 'Playfair Display', serif;
-}
-
-.auth-box h2 {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.auth-box h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1.5rem;
-}
-
-.auth-box input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: none;
-    border-radius: 4px;
-    background-color: #ffefef;
-    font-size: 1rem;
-    font-family: 'Montserrat', sans-serif;
-    color: #8b3332;
-}
-
-.auth-box button {
-    background-color: #ffefef;
-    color: #8b3332;
-    padding: 0.5rem;
-    width: 100%;
-    font-size: 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
     font-weight: bold;
-}
-
-.auth-box p {
-    font-size: 0.9rem;
-    margin-top: 1rem;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.auth-box span {
-    color: #ffefef;
-    text-decoration: underline;
+    color: #5d2e2a;
+  }
+  
+  /* Add Task Section */
+  .add-task-section {
+    background-color: #9a4d44;
+    padding: 1.5rem;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #f3e8e5;
+  }
+  
+  .add-task-section button {
+    font-size: 1.2rem;
+    padding: 0.7rem 2rem;
+    background-color: #5d2e2a;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
-}
-
-/* Welcome Section */
-.welcome {
+    color: #f3e8e5;
+  }
+  
+  .add-task-section button:hover {
+    background-color: #803f3b;
+  }
+  
+  /* Goals Section */
+  .goals {
+    background-color: #9a4d44;
+    padding: 1rem;
+    border-radius: 20px;
+    color: #f3e8e5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .goals h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #f3e8e5;
+  }
+  
+  .goal-item {
+    background-color: #f3e8e5;
+    color: #5d2e2a;
+    border-radius: 10px;
+    padding: 0.5rem;
+    width: 80%;
     text-align: center;
-    color: #8b3332;
-    font-family: 'Playfair Display', serif;
-}
-
-.logo {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 50px; 
-    height: auto;
-}
-
-
-
+    margin: 0.3rem 0;
+  }
+  
+  .goal-item.add-goal {
+    background-color: #f3e8e5;
+    color: #9a4d44;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /* Pomodoro Section */
+  .pomodoro {
+    background-color: #9a4d44;
+    padding: 1.5rem;
+    border-radius: 20px;
+    color: #f3e8e5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .pomodoro h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #f3e8e5;
+  }
+  
+  .pomodoro .timer-display {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    color: #f3e8e5;
+  }
+  
+  .pomodoro button {
+    font-size: 1rem;
+    padding: 0.5rem 1.5rem;
+    background-color: #5d2e2a;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #f3e8e5;
+  }
+  
+  .pomodoro button:hover {
+    background-color: #803f3b;
+  }
+  

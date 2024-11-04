@@ -1,95 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Management App</title>
-    <link rel="stylesheet" href="HomePage.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome Page</title>
+  <link rel="stylesheet" href="HomePage.css">
 </head>
 <body>
 
-    <div class="auth-page" id="signUpPage">
-        <img src="#" alt="Task Nest Logo" class="logo">
+<div class="home-page">
+  <h1 class="welcome-message">Welcome, <span id="userName"></span>! Ready to smtg ur day?</h1>
+  
+  <div class="goals">
+    <h2>Today's Top 5 Goals</h2>
+    <button class="add-goal-btn" onclick="addGoal()">+</button>
+    <ul id="goalsList"></ul>
+  </div>
 
-    <!-- Sign-Up Page -->
-    <div class="auth-page" id="signUpPage">
-        <div class="auth-box">
-            <h2>Welcome to Your Task Manager</h2>
-            <h3>Sign Up</h3>
-            <input type="text" placeholder="First Name" id="firstName">
-            <input type="text" placeholder="Last Name" id="lastName">
-            <input type="text" placeholder="Display Name" id="displayName">
-            <input type="password" placeholder="Password" id="password">
-            <button onclick="signUp()">Sign Up</button>
-            <p>Already have an account? <span onclick="showLogin()">Log In</span></p>
-        </div>
+  <div class="add-task-section">
+    <button class="add-task-btn" onclick="showTaskForm()">Add Task</button>
+  </div>
+
+  <div class="pomodoro">
+    <h2>Pomodoro</h2>
+    <div class="timer">
+      <span id="timerDisplay">25:00</span>
     </div>
+    <button class="pomodoro-btn" onclick="startPomodoro()">Start</button>
+  </div>
+</div>
 
-    <!-- Login Page -->
-    <div class="auth-page" id="loginPage" style="display: none;">
-        <div class="auth-box">
-            <h2>Welcome to Your Task Manager</h2>
-            <h3>Log In</h3>
-            <input type="text" placeholder="Display Name" id="loginDisplayName">
-            <input type="password" placeholder="Password" id="loginPassword">
-            <button onclick="logIn()">Log In</button>
-            <p>Don't have an account yet? <span onclick="showSignUp()">Sign Up</span></p>
-        </div>
-    </div>
+<!-- Task Modal -->
+<div class="modal" id="taskModal">
+  <div class="modal-content">
+    <h3>Add Task</h3>
+    <label>Task Name:</label>
+    <input type="text" id="taskName">
+    <label>Due Date:</label>
+    <input type="date" id="taskDate">
+    <label>Priority:</label>
+    <select id="taskPriority">
+      <option value="high">High</option>
+      <option value="medium">Medium</option>
+      <option value="low">Low</option>
+    </select>
+    <label>Category:</label>
+    <select id="taskCategory">
+      <option value="work">Work</option>
+      <option value="school">School</option>
+      <option value="home">Home</option>
+    </select>
+    <button onclick="addTask()">Add</button>
+    <button onclick="closeTaskForm()">Cancel</button>
+  </div>
+</div>
 
-    <!-- Welcome Section -->
-    <div class="welcome" id="welcomeSection" style="display: none;">
-        <h1 id="welcomeMessage">Welcome, [Name], ready to conquer your day?</h1>
-    </div>
-
-    <div class="home-page">
-        <h1 class="welcome-message">Welcome, <span id="userName"></span>! Ready to smtg ur day?</h1>
-        
-        <div class="goals">
-          <h2>Today's Top 5 Goals</h2>
-          <button class="add-goal-btn" onclick="addGoal()">+</button>
-          <ul id="goalsList"></ul>
-        </div>
-      
-        <div class="add-task-section">
-          <button class="add-task-btn" onclick="showTaskForm()">Add Task</button>
-        </div>
-      
-        <div class="pomodoro">
-          <h2>Pomodoro</h2>
-          <div class="timer">
-            <span id="timerDisplay">25:00</span>
-          </div>
-          <button class="pomodoro-btn" onclick="startPomodoro()">Start</button>
-        </div>
-      </div>
-      
-      <!-- Task Modal -->
-      <div class="modal" id="taskModal">
-        <div class="modal-content">
-          <h3>Add Task</h3>
-          <label>Task Name:</label>
-          <input type="text" id="taskName">
-          <label>Due Date:</label>
-          <input type="date" id="taskDate">
-          <label>Priority:</label>
-          <select id="taskPriority">
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
-          </select>
-          <label>Category:</label>
-          <select id="taskCategory">
-            <option value="work">Work</option>
-            <option value="school">School</option>
-            <option value="home">Home</option>
-          </select>
-          <button onclick="addTask()">Add</button>
-          <button onclick="closeTaskForm()">Cancel</button>
-        </div>
-      </div>
-
-    <script src="HomePage.js"></script>
+<script src="HomePage.js"></script>
 </body>
 </html>
