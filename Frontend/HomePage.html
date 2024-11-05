@@ -8,25 +8,52 @@
 </head>
 <body>
 
+<div class="title-bar">
+  <h1 class="welcome-message">Welcome, <span id="userName"></span>!</h1>
+</div>
+
 <div class="home-page">
-  <h1 class="welcome-message">Welcome, <span id="userName"></span>! Ready to smtg ur day?</h1>
-  
-  <div class="goals">
-    <h2>Today's Top 5 Goals</h2>
-    <button class="add-goal-btn" onclick="addGoal()">+</button>
-    <ul id="goalsList"></ul>
-  </div>
-
-  <div class="add-task-section">
-    <button class="add-task-btn" onclick="showTaskForm()">Add Task</button>
-  </div>
-
+  <!-- Pomodoro and Stopwatch Section -->
   <div class="pomodoro">
     <h2>Pomodoro</h2>
     <div class="timer">
       <span id="timerDisplay">25:00</span>
     </div>
-    <button class="pomodoro-btn" onclick="startPomodoro()">Start</button>
+    <button class="pomodoro-btn" onclick="startPomodoro()">Start Pomodoro</button>
+    <button class="stopwatch-btn" onclick="toggleStopwatch()">Start Stopwatch</button>
+    <div class="stopwatch" id="stopwatchDisplay">00:00</div>
+  </div>
+
+  <!-- Goals Section -->
+  <div class="goals">
+    <h2>Today's Top 5 Goals</h2>
+    <button class="add-goal-btn" onclick="showGoalForm()">Add Goal</button>
+    <ul id="goalsList"></ul>
+  </div>
+
+  <!-- To-Do Section -->
+  <div class="tasks-section">
+    <h2>To Do</h2>
+    <div class="sort-tasks">
+      <label>Sort By:</label>
+      <select id="sortTasks" onchange="sortTasks()">
+        <option value="due-date">Due Date</option>
+        <option value="priority">Priority</option>
+        <option value="category">Category</option>
+      </select>
+    </div>
+    <ul id="tasksList"></ul>
+    <button class="add-task-btn" onclick="showTaskForm()">Add Task</button>
+  </div>
+</div>
+
+<!-- Goal Modal -->
+<div class="modal" id="goalModal">
+  <div class="modal-content">
+    <h3>Add Goal</h3>
+    <input type="text" id="goalInput" placeholder="Enter your goal">
+    <button onclick="addGoal()">Add</button>
+    <button onclick="closeGoalForm()">Cancel</button>
   </div>
 </div>
 
