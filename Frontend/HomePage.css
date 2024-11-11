@@ -1,67 +1,151 @@
-/* General Page Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
-}
-
+/* General Styles */
 body {
-  background-color: #f3e8e5;
-  color: #5d2e2a;
+  font-family: 'Georgia', serif;
+  background-color: #fae8e0;
+  color: #3e0d0a;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
-  overflow: hidden;
+  margin: 0;
 }
 
-/* Title Bar */
-.title-bar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: #9a4d44;
-  color: #f3e8e5;
+header {
+  margin-top: 20px;
+}
+
+h1 {
+  font-size: 2em;
+  color: #3e0d0a;
   text-align: center;
-  padding: 1rem;
-  font-size: 1.5rem;
-  font-weight: bold;
-  z-index: 10;
 }
 
-/* Container for the Welcome Page */
-.home-page {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  gap: 2rem;
-  width: 90vw;
-  height: 90vh;
-  padding: 5rem 2rem 2rem; /* Adjusted padding to account for title bar */
-  color: #5d2e2a;
+/* Container Layout */
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 1000px;
+  gap: 5px;
+}
+
+.section {
+  background-color: #8b4441;
+  border-radius: 15px;
+  padding: 15px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fae8e0;
 }
 
 /* Goals Section */
-.goals, .tasks-section, .pomodoro {
-  background-color: #9a4d44;
-  padding: 1rem;
-  border-radius: 20px;
-  color: #f3e8e5;
+.goals-section h2 {
+  font-size: 1.2em;
 }
 
-.add-goal-btn, .add-task-btn, .pomodoro-btn, .stopwatch-btn {
-  font-size: 1.2rem;
-  padding: 0.7rem 2rem;
-  background-color: #5d2e2a;
-  border: none;
+#goalsList {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+#goalsList li {
+  background-color: #fae8e0;
+  color: #8b4441;
+  padding: 8px;
   border-radius: 10px;
-  cursor: pointer;
-  color: #f3e8e5;
+  margin: 5px 0;
+  text-align: center;
 }
 
-/* Timer Display */
-.timer, .stopwatch {
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 1rem 0;
+#openGoalModal {
+  background-color: #fae8e0;
+  color: #8b4441;
+  font-size: 1.5em;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+/* Tasks Section */
+.tasks-section h2 {
+  font-size: 1.2em;
+}
+
+#tasksList {
+  width: 100%;
+}
+
+.task-item {
+  background-color: #fae8e0;
+  color: #8b4441;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-details {
+  font-size: 0.9em;
+}
+
+.add-task-button {
+  background-color: #fae8e0;
+  color: #8b4441;
+  font-size: 1.5em;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+/* Pomodoro Section */
+.pomodoro-section h2 {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+#pomodoroTimer, #stopwatchTimer {
+  background-color: #fae8e0;
+  color: #8b4441;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px 0;
+  text-align: center;
+  width: 80%;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #8b4441;
+  color: #fae8e0;
+  padding: 20px;
+  border-radius: 15px;
+  width: 300px;
+  text-align: center;
+}
+
+.close {
+  color: #fae8e0;
+  float: right;
+  font-size: 1.5em;
+  cursor: pointer;
 }

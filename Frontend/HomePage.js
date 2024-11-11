@@ -1,112 +1,65 @@
-// Display username from login
-document.addEventListener("DOMContentLoaded", () => {
-  const username = localStorage.getItem('username');
-  document.getElementById('userName').textContent = username || 'User';
-});
+// JavaScript code for handling modals and form submissions
+const openTaskModal = document.getElementById("openTaskModal");
+const taskModal = document.getElementById("taskModal");
+const closeTaskModal = document.getElementById("closeTaskModal");
+const taskForm = document.getElementById("taskForm");
+
+openTaskModal.onclick = () => { taskModal.style.display = "flex"; };
+closeTaskModal.onclick = () => { taskModal.style.display = "none"; };
+taskForm.onsubmit = (e) => {
+    e.preventDefault();
+    addTask();
+    taskForm.reset();
+    taskModal.style.display = "none";
+};
+
+// Adding tasks to the task list
+function addTask() {
+    const taskName = document.getElementById("taskName").value;
+    const dueDate = document.getElementById("dueDate").value;
+    const category = document.getElementById("category").value;
+    const priority = document.getElementById("priority").value;
+
+    const taskItem = document.createElement("div");
+    taskItem.className = "task-item";
+    taskItem.innerHTML = `
+        <div class="task-details">
+            <strong>${taskName}</strong><br>
+            Due: ${dueDate} | Priority: ${priority}<br>
+            Category: ${category}
+        </div>
+        <div>
+            <button>Edit</button>
+            <button>Delete</button>
+        </div>
+    `;
+    document.getElementById("tasksList").appendChild(taskItem);
+}
 
 // Goal Modal
-function showGoalForm() {
-  document.getElementById('goalModal').style.display = 'flex';
-}
+const openGoalModal = document.getElementById("openGoalModal");
+const goalModal = document.getElementById("goalModal");
+const closeGoalModal = document.getElementById("closeGoalModal");
+const goalForm = document.getElementById("goalForm");
 
-function closeGoalForm() {
-  document.getElementById('goalModal').style.display = 'none';
-}
+openGoalModal.onclick = () => { goalModal.style.display = "flex"; };
+closeGoalModal.onclick = () => { goalModal.style.display = "none"; };
+goalForm.onsubmit = (e) => {
+    e.preventDefault();
+    addGoal();
+    goalForm.reset();
+    goalModal.style.display = "none";
+};
 
+// Adding goals with a limit of 5
 function addGoal() {
-  const goalInput = document.getElementById('goalInput').value;
-  if (goalInput && document.getElementById('goalsList').childElementCount < 5) {
-    const goalItem = document.createElement('li');
-    goalItem.textContent = goalInput;
-    document.getElementById('goalsList').appendChild(goalItem);
-    document.getElementById('goalInput').value = '';
-    closeGoalForm();
-  } else {
-    alert("Maximum of 5 goals reached.");
-  }
-}
-
-// Task Modal
-function showTaskForm() {
-  document.getElementById('taskModal').style.display = 'flex';
-}
-
-function closeTaskForm() {
-  document.getElementById('taskModal').style.display = 'none';
-}
-
-function addTask() {
-  const taskName = document.getElementById('taskName').value;
-  const taskDate = document.getElementById('taskDate').value;
-  const taskPriority = document.getElementById('taskPriority').value;
-  const taskCategory = document.getElementById('taskCategory').value;
-
-  const taskItem = document.createElement('li');
-  taskItem.textContent = `${taskName} - ${taskDate} - ${taskPriority} - ${taskCategory}`;
-  taskItem.className = `task-${taskPriority}`;
-  document.getElementById('tasksList').appendChild(taskItem);
-
-  closeTaskForm();
-}
-
-// Pomodoro Timer
-let pomodoroTime = 25 * 60;
-let breakTime = 5 * 60;
-let timerInterval;
-
-function startPomodoro() {
-  clearInterval(timerInterval);
-  let time = pomodoroTime;
-  timerInterval = setInterval(() => {
-    let minutes = Math.floor(time / 60);
-    let seconds = time % 60;
-    document.getElementById('timerDisplay').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    time--;
-    if (time < 0) {
-      clearInterval(timerInterval);
-      alert("Pomodoro complete!");
+    if (document.getElementById("goalsList").children.length >= 5) {
+        alert("Only 5 goals allowed!");
+        return;
     }
-  }, 1000);
-}
 
-// Stopwatch
-let stopwatchTime = 0;
-let stopwatchInterval;
-let isStopwatchRunning = false;
-
-function toggleStopwatch() {
-  if (isStopwatchRunning) {
-    clearInterval(stopwatchInterval);
-    isStopwatchRunning = false;
-  } else {
-    stopwatchInterval = setInterval(() => {
-      stopwatchTime++;
-      let minutes = Math.floor(stopwatchTime / 60);
-      let seconds = stopwatchTime % 60;
-      document.getElementById('stopwatchDisplay').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    }, 1000);
-    isStopwatchRunning = true;
-  }
-}
-
-// Sorting tasks by different attributes
-function sortTasks() {
-  let tasks = Array.from(document.getElementById('tasksList').children);
-  let sortBy = document.getElementById('sortTasks').value;
-
-  tasks.sort((a, b) => {
-    let [aName, aDate, aPriority, aCategory] = a.textContent.split(" - ");
-    let [bName, bDate, bPriority, bCategory] = b.textContent.split(" - ");
-
-    if (sortBy === 'due-date') {
-      return new Date(aDate) - new Date(bDate);
-    } else if (sortBy === 'priority') {
-      return ['low', 'medium', 'high'].indexOf(aPriority) - ['low', 'medium', 'high'].indexOf(bPriority);
-    } else if (sortBy === 'category') {
-      return aCategory.localeCompare(bCategory);
-    }
-  });
-
-  document.getElementById('tasksList').innerHTML = '';
-  tasks.forEach(task => document.getElementById('tasksList').appendChild(task));
+    const goalText = document.getElementById("goalText").value;
+    const goalItem = document.createElement("li");
+    goalItem.textContent = goalText;
+    document.getElementById("goalsList").appendChild(goalItem);
 }
