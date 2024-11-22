@@ -1,73 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Task Manager</title>
-  <link rel="stylesheet" href="HomePage.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="HomePage.css">
 </head>
 <body>
-
-  <!-- Side Navigation -->
-  <div id="sideNav" class="side-nav">
-    <ul>
-      <li><a href="#" id="homeNav">Home</a></li>
-      <li><a href="#" id="pomodoroNav">Pomodoro Timer</a></li>
-      <li><a href="#" id="calendarNav">Calendar</a></li>
-    </ul>
-  </div>
-
-  <!-- Main Content -->
-  <div id="mainContent" class="main-content">
-    <!-- Task Manager Home -->
-    <div id="tasksPage" class="task-page">
-      <h1>Your Tasks</h1>
-      
-      <!-- Task Input Form -->
-      <button id="addTaskBtn">Add Task</button>
-      
-      <!-- Task List -->
-      <ul id="taskList">
-        <!-- Tasks will appear here -->
-      </ul>
-    </div>
-  </div>
-
-  <!-- Modal for Adding Task -->
-  <div id="taskModal" class="modal">
-    <div class="modal-content">
-      <h2>Add New Task</h2>
-      <form id="taskForm">
-        <label for="taskName">Task Name:</label>
-        <input type="text" id="taskName" required placeholder="Task name"><br>
-
-        <label for="dueDate">Due Date:</label>
-        <input type="date" id="dueDate" required><br>
-
-        <label for="category">Category:</label>
-        <select id="category">
-          <option value="school">School</option>
-          <option value="work">Work</option>
-          <option value="home">Home</option>
-          <option value="other">Other</option>
-        </select><br>
-
-        <label for="priority">Priority:</label>
-        <select id="priority">
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select><br>
-
-        <div class="modal-actions">
-          <button type="button" id="closeModalBtn">Cancel</button>
-          <button type="submit">Save Task</button>
+    <div class="container">
+        <!-- Side Navigation -->
+        <div class="sidebar">
+            <div class="logo"></div>
+            <button class="nav-button">Home</button>
+            <button class="nav-button">Pomodoro</button>
+            <button class="nav-button">Calendar</button>
         </div>
-      </form>
-    </div>
-  </div>
 
-  <script src="HomePage.js"></script>
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <h1>TO DO</h1>
+                <button id="sort-btn">SORT BY</button>
+            </header>
+
+            <div class="task-header">
+                <span>Task Name - Due Date - Category - Priority Level</span>
+                <button id="add-task-btn">ADD TASK</button>
+            </div>
+
+            <div id="task-list" class="task-list"></div>
+
+            <!-- Task Modal -->
+            <div id="task-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <h2>Add New Task</h2>
+                    <form id="task-form">
+                        <input type="text" id="task-name" placeholder="Task Name" required>
+                        <input type="date" id="due-date" required>
+                        <select id="category" required>
+                            <option value="school">School</option>
+                            <option value="work">Work</option>
+                            <option value="home">Home</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <select id="priority" required>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                        <button type="submit">Add Task</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="HomePage.js"></script>
 </body>
 </html>

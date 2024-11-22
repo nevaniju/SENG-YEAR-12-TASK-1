@@ -1,55 +1,37 @@
-// Get elements
-const addTaskBtn = document.getElementById('addTaskBtn');
-const taskModal = document.getElementById('taskModal');
-const closeModalBtn = document.getElementById('closeModalBtn');
-const taskForm = document.getElementById('taskForm');
-const taskList = document.getElementById('taskList');
+document.getElementById("add-task-btn").addEventListener("click", function() {
+  document.getElementById("task-modal").style.display = "block";
+});
 
-// Show the modal
-function openModal() {
-  taskModal.style.display = 'flex';
-}
-
-// Hide the modal
-function closeModal() {
-  taskModal.style.display = 'none';
-}
-
-// Add task to list
-function addTask(taskName, dueDate, category, priority) {
-  const li = document.createElement('li');
-  li.innerHTML = `
-    <strong>${taskName}</strong> (Due: ${dueDate}) - ${category} - Priority: ${priority}
-    <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
+document.getElementById("task-form").addEventListener("submit", function(e) {
+  e.preventDefault();
+  
+  const taskName = document.getElementById("task-name").value;
+  const dueDate = document.getElementById("due-date").value;
+  const category = document.getElementById("category").value;
+  const priority = document.getElementById("priority").value;
+  
+  const taskItem = document.createElement("div");
+  taskItem.classList.add("task-item");
+  taskItem.innerHTML = `
+      <span>${taskName} - ${dueDate} - ${category} - ${priority}</span>
+      <button class="edit-btn">✏️</button>
+      <button class="delete-btn">❌</button>
   `;
+  
+  document.getElementById("task-list").appendChild(taskItem);
+  
+  taskItem.querySelector(".edit-btn").addEventListener("click", function() {
+      // the code to edit taks (ill add it later)
+  });
+  
+  taskItem.querySelector(".delete-btn").addEventListener("click", function() {
+      taskItem.remove();
+  });
 
-  // Append the new task to the task list
-  taskList.appendChild(li);
-}
+  document.getElementById("task-modal").style.display = "none";
+  document.getElementById("task-form").reset();
+});
 
-// Delete task
-function deleteTask(button) {
-  const taskItem = button.parentElement;
-  taskList.removeChild(taskItem);
-}
-
-// Event listeners
-addTaskBtn.addEventListener('click', openModal);
-closeModalBtn.addEventListener('click', closeModal);
-
-// Handle task form submission
-taskForm.addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  const taskName = document.getElementById('taskName').value;
-  const dueDate = document.getElementById('dueDate').value;
-  const category = document.getElementById('category').value;
-  const priority = document.getElementById('priority').value;
-
-  // Add task to the list
-  addTask(taskName, dueDate, category, priority);
-
-  // Clear the form and close the modal
-  taskForm.reset();
-  closeModal();
+document.querySelector(".close-btn").addEventListener("click", function() {
+  document.getElementById("task-modal").style.display = "none";
 });
