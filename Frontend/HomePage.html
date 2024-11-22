@@ -1,85 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskNest</title>
-    <link rel="stylesheet" href="HomePage.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="HomePage.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to TaskNest [Display Name]</h1>
-    </header>
 
-    <div class="container">
-        <!-- Goals Section -->
-        <div class="section goals-section">
-            <h2>Today's Top 5 Goals</h2>
-            <ul id="goalsList"></ul>
-            <button id="openGoalModal">+</button>
-        </div>
+  <!-- Side Navigation -->
+  <div id="sideNav" class="side-nav">
+    <ul>
+      <li><a href="#" id="homeNav">Home</a></li>
+      <li><a href="#" id="pomodoroNav">Pomodoro Timer</a></li>
+      <li><a href="#" id="calendarNav">Calendar</a></li>
+    </ul>
+  </div>
 
-        <!-- Tasks Section -->
-        <div class="section tasks-section">
-            <h2>Tasks</h2>
-            <div id="tasksList"></div>
-            <button id="openTaskModal" class="add-task-button">+</button>
-        </div>
-
-        <!-- Pomodoro Section -->
-        <div class="section pomodoro-section">
-            <h2>Pomodoro</h2>
-            <div id="pomodoroTimer">
-                <p>25 MIN</p>
-                <button>Start</button>
-            </div>
-            <h2>Stopwatch</h2>
-            <div id="stopwatchTimer">
-                <p>00:00</p>
-            </div>
-        </div>
+  <!-- Main Content -->
+  <div id="mainContent" class="main-content">
+    <!-- Task Manager Home -->
+    <div id="tasksPage" class="task-page">
+      <h1>Your Tasks</h1>
+      
+      <!-- Task Input Form -->
+      <button id="addTaskBtn">Add Task</button>
+      
+      <!-- Task List -->
+      <ul id="taskList">
+        <!-- Tasks will appear here -->
+      </ul>
     </div>
+  </div>
 
-    <!-- Task Modal -->
-    <div id="taskModal" class="modal">
-        <div class="modal-content">
-            <span id="closeTaskModal" class="close">&times;</span>
-            <h2>Add Task</h2>
-            <form id="taskForm">
-                <label>Task Name:</label>
-                <input type="text" id="taskName" required>
-                <label>Due Date:</label>
-                <input type="date" id="dueDate" required>
-                <label>Category:</label>
-                <select id="category">
-                    <option>School</option>
-                    <option>Work</option>
-                    <option>Home</option>
-                    <option>Other</option>
-                </select>
-                <label>Priority Level:</label>
-                <select id="priority">
-                    <option>High</option>
-                    <option>Medium</option>
-                    <option>Low</option>
-                </select>
-                <button type="submit">Add Task</button>
-            </form>
+  <!-- Modal for Adding Task -->
+  <div id="taskModal" class="modal">
+    <div class="modal-content">
+      <h2>Add New Task</h2>
+      <form id="taskForm">
+        <label for="taskName">Task Name:</label>
+        <input type="text" id="taskName" required placeholder="Task name"><br>
+
+        <label for="dueDate">Due Date:</label>
+        <input type="date" id="dueDate" required><br>
+
+        <label for="category">Category:</label>
+        <select id="category">
+          <option value="school">School</option>
+          <option value="work">Work</option>
+          <option value="home">Home</option>
+          <option value="other">Other</option>
+        </select><br>
+
+        <label for="priority">Priority:</label>
+        <select id="priority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select><br>
+
+        <div class="modal-actions">
+          <button type="button" id="closeModalBtn">Cancel</button>
+          <button type="submit">Save Task</button>
         </div>
+      </form>
     </div>
+  </div>
 
-    <!-- Goal Modal -->
-    <div id="goalModal" class="modal">
-        <div class="modal-content">
-            <span id="closeGoalModal" class="close">&times;</span>
-            <h2>Add Goal</h2>
-            <form id="goalForm">
-                <input type="text" id="goalText" required placeholder="Enter your goal">
-                <button type="submit">Add Goal</button>
-            </form>
-        </div>
-    </div>
-
-    <script src="HomePage.js"></script>
+  <script src="HomePage.js"></script>
 </body>
 </html>

@@ -1,65 +1,55 @@
-// JavaScript code for handling modals and form submissions
-const openTaskModal = document.getElementById("openTaskModal");
-const taskModal = document.getElementById("taskModal");
-const closeTaskModal = document.getElementById("closeTaskModal");
-const taskForm = document.getElementById("taskForm");
+// Get elements
+const addTaskBtn = document.getElementById('addTaskBtn');
+const taskModal = document.getElementById('taskModal');
+const closeModalBtn = document.getElementById('closeModalBtn');
+const taskForm = document.getElementById('taskForm');
+const taskList = document.getElementById('taskList');
 
-openTaskModal.onclick = () => { taskModal.style.display = "flex"; };
-closeTaskModal.onclick = () => { taskModal.style.display = "none"; };
-taskForm.onsubmit = (e) => {
-    e.preventDefault();
-    addTask();
-    taskForm.reset();
-    taskModal.style.display = "none";
-};
-
-// Adding tasks to the task list
-function addTask() {
-    const taskName = document.getElementById("taskName").value;
-    const dueDate = document.getElementById("dueDate").value;
-    const category = document.getElementById("category").value;
-    const priority = document.getElementById("priority").value;
-
-    const taskItem = document.createElement("div");
-    taskItem.className = "task-item";
-    taskItem.innerHTML = `
-        <div class="task-details">
-            <strong>${taskName}</strong><br>
-            Due: ${dueDate} | Priority: ${priority}<br>
-            Category: ${category}
-        </div>
-        <div>
-            <button>Edit</button>
-            <button>Delete</button>
-        </div>
-    `;
-    document.getElementById("tasksList").appendChild(taskItem);
+// Show the modal
+function openModal() {
+  taskModal.style.display = 'flex';
 }
 
-// Goal Modal
-const openGoalModal = document.getElementById("openGoalModal");
-const goalModal = document.getElementById("goalModal");
-const closeGoalModal = document.getElementById("closeGoalModal");
-const goalForm = document.getElementById("goalForm");
-
-openGoalModal.onclick = () => { goalModal.style.display = "flex"; };
-closeGoalModal.onclick = () => { goalModal.style.display = "none"; };
-goalForm.onsubmit = (e) => {
-    e.preventDefault();
-    addGoal();
-    goalForm.reset();
-    goalModal.style.display = "none";
-};
-
-// Adding goals with a limit of 5
-function addGoal() {
-    if (document.getElementById("goalsList").children.length >= 5) {
-        alert("Only 5 goals allowed!");
-        return;
-    }
-
-    const goalText = document.getElementById("goalText").value;
-    const goalItem = document.createElement("li");
-    goalItem.textContent = goalText;
-    document.getElementById("goalsList").appendChild(goalItem);
+// Hide the modal
+function closeModal() {
+  taskModal.style.display = 'none';
 }
+
+// Add task to list
+function addTask(taskName, dueDate, category, priority) {
+  const li = document.createElement('li');
+  li.innerHTML = `
+    <strong>${taskName}</strong> (Due: ${dueDate}) - ${category} - Priority: ${priority}
+    <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
+  `;
+
+  // Append the new task to the task list
+  taskList.appendChild(li);
+}
+
+// Delete task
+function deleteTask(button) {
+  const taskItem = button.parentElement;
+  taskList.removeChild(taskItem);
+}
+
+// Event listeners
+addTaskBtn.addEventListener('click', openModal);
+closeModalBtn.addEventListener('click', closeModal);
+
+// Handle task form submission
+taskForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const taskName = document.getElementById('taskName').value;
+  const dueDate = document.getElementById('dueDate').value;
+  const category = document.getElementById('category').value;
+  const priority = document.getElementById('priority').value;
+
+  // Add task to the list
+  addTask(taskName, dueDate, category, priority);
+
+  // Clear the form and close the modal
+  taskForm.reset();
+  closeModal();
+});
