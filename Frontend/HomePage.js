@@ -106,3 +106,107 @@ function sortTasks(sortType) {
   taskList.innerHTML = "";
   tasks.forEach(task => taskList.appendChild(task));
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const taskList = document.querySelector(".task-list");
+  const addTaskBtn = document.getElementById("addTaskBtn");
+  const taskModal = document.querySelector(".task-modal");
+  const modalClose = document.querySelector(".close-modal");
+  const saveTaskBtn = document.getElementById("saveTask");
+  const sortDropdown = document.querySelector("#sortDropdown");
+
+  const apiUrl = "http://localhost:3000/tasks"; // Backend API URL
+
+  // Fetch tasks and display them
+  const fetchTasks = async () => {
+    const response = await fetch(apiUrl);
+    const tasks = await response.json();
+
+    taskList.innerHTML = "";
+    tasks.forEach((task) => {
+      taskList.innerHTML += `
+        <div class="task" data-id="${task.id}">
+          <span>${task.name}</span>
+          <span>${task.due_date}</span>
+          <span>${task.category}</span>
+          <span>${task.priority}</span>
+          <button class="edit-btn">Edit</button>
+          <button class="delete-btn">Delete</button>
+        </div>
+      `;
+    });
+  };
+
+  // Open Add Task Modal
+  addTaskBtn.addEventListener("click", () => {
+    taskModal.style.display = "block";
+  });
+
+  // Close Modal
+  modalClose.addEventListener("click", () => {
+    taskModal.style.display = "none";
+  });
+
+  // Add or Edit Task
+  saveTaskBtn.addEventListener("click", async () => {
+    const taskId = saveTaskBtn.dataset.id; // If editing, this will have a value
+    const name = document.getElementById("taskName").value;
+    const due_date = document.getElementById("taskDueDate").value;
+    const category = document.getElementById("taskCategory").value;
+    const priority = document.getElementById("taskPriority").value;
+
+    const taskData = { name, due_date, category, priority };
+
+    if (taskId) {
+      // Edit Task
+      await fetch(`${apiUrl}/${taskId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(taskData),
+      });
+    } else {
+      // Add Task
+      await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(taskData),
+      });
+    }
+
+    taskModal.style.display = "none";
+    fetchTasks();
+  });
+
+  // Delete Task
+  taskList.addEventListener("click", async (e) => {
+    if (e.target.classList.contains("delete-btn")) {
+      const taskId = e.target.closest(".task").dataset.id;
+      await fetch(`${apiUrl}/${taskId}`, { method: "DELETE" });
+      fetchTasks();
+    }
+
+    if (e.target.classList.contains("edit-btn")) {
+      const taskElement = e.target.closest(".task");
+      const taskId = taskElement.dataset.id;
+
+      // Pre-fill modal for editing
+      const taskData = {
+        name: taskElement.children[0].textContent,
+        due_date: taskElement.children[1].textContent,
+        category: taskElement.children[2].textContent,
+        priority: taskElement.children[3].textContent,
+      };
+
+      document.getElementById("taskName").value = taskData.name;
+      document.getElementById("taskDueDate").value = taskData.due_date;
+      document.getElementById("taskCategory").value = taskData.category;
+      document.getElementById("taskPriority").value = taskData.priority;
+
+      saveTaskBtn.dataset.id = taskId; // Set ID for editing
+      taskModal.style.display = "block";
+    }
+  });
+
+  // Fetch tasks on page load
+  fetchTasks();
+});
