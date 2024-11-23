@@ -8,9 +8,11 @@
 </head>
 <body>
     <div class="container">
-        <!-- Side Navigation -->
+        <!-- Sidebar -->
         <div class="sidebar">
-            <div class="logo"></div>
+            <div class="logo">
+                <span class="logo-text">TaskNest</span>
+            </div>
             <button class="nav-button">Home</button>
             <button class="nav-button">Pomodoro</button>
             <button class="nav-button">Calendar</button>
@@ -20,11 +22,18 @@
         <div class="main-content">
             <header>
                 <h1>TO DO</h1>
-                <button id="sort-btn">SORT BY</button>
+                <div class="sort-container">
+                    <button id="sort-btn">SORT BY</button>
+                    <div id="sort-options" class="dropdown">
+                        <button class="dropdown-item" data-sort="due-date">Due Date</button>
+                        <button class="dropdown-item" data-sort="priority">Priority</button>
+                        <button class="dropdown-item" data-sort="category">Category</button>
+                    </div>
+                </div>
             </header>
 
             <div class="task-header">
-                <span>Task Name - Due Date - Category - Priority Level</span>
+                <span>Tasks</span>
                 <button id="add-task-btn">ADD TASK</button>
             </div>
 
@@ -36,20 +45,28 @@
                     <span class="close-btn">&times;</span>
                     <h2>Add New Task</h2>
                     <form id="task-form">
-                        <input type="text" id="task-name" placeholder="Task Name" required>
+                        <label for="task-name">Task Name</label>
+                        <input type="text" id="task-name" placeholder="Enter task name" required>
+
+                        <label for="due-date">Due Date</label>
                         <input type="date" id="due-date" required>
+
+                        <label for="category">Category</label>
                         <select id="category" required>
                             <option value="school">School</option>
                             <option value="work">Work</option>
                             <option value="home">Home</option>
                             <option value="other">Other</option>
                         </select>
+
+                        <label for="priority">Priority Level</label>
                         <select id="priority" required>
                             <option value="low">Low</option>
                             <option value="medium">Medium</option>
                             <option value="high">High</option>
                         </select>
-                        <button type="submit">Add Task</button>
+
+                        <button type="submit" class="modal-submit">Add Task</button>
                     </form>
                 </div>
             </div>
