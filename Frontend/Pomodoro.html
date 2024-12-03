@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Timer</title>
+  <link rel="stylesheet" href="Pomodoro.css">
+</head>
+<body>
+  <!-- Pomodoro Timer Page -->
+  <div id="pomodoro-page" class="page">
+    <div class="timer-container">
+      <h1 class="timer-title">Pomodoro</h1>
+      <h2 class="timer-display" id="pomodoro-timer">25:00</h2>
+      <button class="btn" id="start-pomodoro">Start</button>
+      <button class="btn" id="pause-pomodoro">Pause</button>
+      <button class="btn" id="break-button">Break</button>
+    </div>
+    <button class="back-btn" id="back-to-home">Back</button>
+  </div>
+
+  <!-- Break Timer Page -->
+  <div id="break-page" class="page hidden">
+    <div class="timer-container">
+      <h1 class="timer-title">Break</h1>
+      <h2 class="timer-display" id="break-timer">5:00</h2>
+      <button class="btn" id="start-break">Start</button>
+      <button class="btn" id="pause-break">Pause</button>
+      <button class="btn" id="pomodoro-button">Pomodoro</button>
+    </div>
+    <button class="back-btn" id="back-to-home-2">Back</button>
+  </div>
+
+  <script src="Pomodoro.js"></script>
+</body>
+</html>
