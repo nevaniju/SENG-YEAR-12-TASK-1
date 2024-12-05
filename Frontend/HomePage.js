@@ -38,17 +38,19 @@ const loadTasks = async () => {
     } else {
       tasks.forEach((task) => {
         const taskHTML = `
-          <div class="task-item" data-id="${task.id}">
-            <div>
-              <p class="task-name"><strong>${task.name}</strong></p>
-              <p class="task-details">Due: ${task.due_date} | Priority: ${task.priority} | Category: ${task.category}</p>
-            </div>
-            <div class="task-actions">
-              <button class="btn edit-task-btn" data-id="${task.id}">Edit</button>
-              <button class="btn delete-task-btn" data-id="${task.id}">Delete</button>
-            </div>
+        <div class="task-item" data-id="${task.id}">
+          <div>
+            <p class="task-name"><strong>${task.name}</strong></p>
+            <p class="task-details">Due: ${task.due_date} | Priority: ${task.priority} | Category: ${task.category}</p>
           </div>
-        `;
+          <div class="task-actions">
+            <button class="btn edit-task-btn" data-id="${task.id}">Edit</button>
+            <button class="btn delete-task-btn" data-id="${task.id}">Delete</button>
+            <button class="btn done-task-btn" data-id="${task.id}">Done</button>
+          </div>
+        </div>
+      `;
+      
         taskContainer.insertAdjacentHTML("beforeend", taskHTML);
       });
 
@@ -58,6 +60,9 @@ const loadTasks = async () => {
       });
       document.querySelectorAll(".delete-task-btn").forEach((button) => {
         button.addEventListener("click", deleteTask);
+      });
+      document.querySelectorAll(".done-task-btn").forEach((btn) => {
+        btn.addEventListener("click", doneTask);
       });
     }
   } catch (error) {
@@ -99,16 +104,35 @@ taskForm.addEventListener("submit", async (e) => {
   }
 });
 
-// Delete task
+// Delete task with confirmation
 const deleteTask = async (e) => {
   const taskId = e.target.dataset.id;
-  try {
-    await fetch(`${BACKEND_URL}/${taskId}`, { method: "DELETE" });
-    loadTasks(); // Refresh tasks
-  } catch (error) {
-    console.error("Error deleting task:", error);
+
+  if (confirm("Are you sure you want to delete this task?")) {
+    try {
+      await fetch(`${BACKEND_URL}/${taskId}`, { method: "DELETE" });
+      loadTasks(); // Refresh tasks
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
   }
 };
+
+
+// Mark task as done
+const doneTask = async (e) => {
+  const taskId = e.target.dataset.id;
+
+  if (confirm("Are you sure you've completed this task?")) {
+    try {
+      await fetch(`${BACKEND_URL}/${taskId}`, { method: "DELETE" });
+      loadTasks(); // Refresh tasks after marking as done
+    } catch (error) {
+      console.error("Error marking task as done:", error);
+    }
+  }
+};
+
 
 // Open modal to edit task
 const openEditTask = async (e) => {
