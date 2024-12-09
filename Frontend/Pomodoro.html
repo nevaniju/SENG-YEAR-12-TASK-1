@@ -5,30 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pomodoro Timer</title>
   <link rel="stylesheet" href="Pomodoro.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Pomodoro Timer Page -->
-  <div id="pomodoro-page" class="page">
-    <div class="timer-container">
-      <h1 class="timer-title">Pomodoro</h1>
-      <h2 class="timer-display" id="pomodoro-timer">25:00</h2>
-      <button class="btn" id="start-pomodoro">Start</button>
-      <button class="btn" id="pause-pomodoro">Pause</button>
-      <button class="btn" id="break-button">Break</button>
+  <div class="container">
+    <div class="tabs">
+      <button class="tab active" data-timer="pomodoro">Pomodoro</button>
+      <button class="tab" data-timer="short-break">Short Break</button>
+      <button class="tab" data-timer="long-break">Long Break</button>
     </div>
-    <button class="back-btn" id="back-to-home">Back</button>
-  </div>
 
-  <!-- Break Timer Page -->
-  <div id="break-page" class="page hidden">
-    <div class="timer-container">
-      <h1 class="timer-title">Break</h1>
-      <h2 class="timer-display" id="break-timer">5:00</h2>
-      <button class="btn" id="start-break">Start</button>
-      <button class="btn" id="pause-break">Pause</button>
-      <button class="btn" id="pomodoro-button">Pomodoro</button>
+    <div class="timer-display">
+      <h1 id="timer-title">Pomodoro Timer</h1>
+      <h2 id="timer">25:00</h2>
+      <button id="start-button" class="btn">Start</button>
+      <button id="pause-button" class="btn">Pause</button>
     </div>
-    <button class="back-btn" id="back-to-home-2">Back</button>
+
+    <a href="Frontend/Pomodoro.html" id="back-home" class="btn back-btn">Back to Home</a>
   </div>
 
   <script src="Pomodoro.js"></script>
