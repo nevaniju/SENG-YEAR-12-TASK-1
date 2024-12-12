@@ -5,6 +5,7 @@ const closeModalBtn = document.getElementById("close-modal");
 const taskForm = document.getElementById("task-form");
 const taskContainer = document.querySelector(".task-container");
 const sortBtn = document.querySelector(".sort-btn");
+const sortOptions = document.getElementById("sort-options");
 
 // Backend URL
 const BACKEND_URL = "http://localhost:3000/tasks";
@@ -30,8 +31,7 @@ closeModalBtn.addEventListener("click", () => {
 const loadTasks = async () => {
   try {
     const response = await fetch(BACKEND_URL);
-    const tasks = await response.json();
-    taskContainer.innerHTML = ""; // Clear current tasks
+    let tasks = await response.json();
 
     if (tasks.length === 0) {
       taskContainer.innerHTML = `<p class="placeholder">Add Your First Task!</p>`;
@@ -118,7 +118,6 @@ const deleteTask = async (e) => {
   }
 };
 
-
 // Mark task as done
 const doneTask = async (e) => {
   const taskId = e.target.dataset.id;
@@ -132,7 +131,6 @@ const doneTask = async (e) => {
     }
   }
 };
-
 
 // Open modal to edit task
 const openEditTask = async (e) => {
@@ -157,7 +155,81 @@ const openEditTask = async (e) => {
   }
 };
 
+// Sort tasks based on the selected criterion
+const sortTasks = async (criteria) => {
+  try {
+    const response = await fetch(BACKEND_URL);
+    let tasks = await response.json();
 
+    // Sort tasks based on the criteria
+    switch (criteria) {
+      case 'due-date':
+        tasks.sort((a, b) => new Date(a.due_date) - new Date(b.due_date));
+        break;
+      case 'priority':
+        tasks.sort((a, b) => {
+          const priorityOrder = { high: 1, medium: 2, low: 3 };
+          return priorityOrder[a.priority] - priorityOrder[b.priority];
+        });
+        break;
+      case 'school':
+        tasks = tasks.filter(task => task.category === 'school');
+        break;
+      case 'work':
+        tasks = tasks.filter(task => task.category === 'work');
+        break;
+      case 'personal':
+        tasks = tasks.filter(task => task.category === 'personal');
+        break;
+      case 'other':
+        tasks = tasks.filter(task => task.category === 'other');
+        break;
+    }
+
+    taskContainer.innerHTML = ""; // Clear existing tasks
+    tasks.forEach((task) => {
+      const taskHTML = `
+        <div class="task-item" data-id="${task.id}">
+          <div>
+            <p class="task-name"><strong>${task.name}</strong></p>
+            <p class="task-details">Due: ${task.due_date} | Priority: ${task.priority} | Category: ${task.category}</p>
+          </div>
+          <div class="task-actions">
+            <button class="btn edit-task-btn" data-id="${task.id}">Edit</button>
+            <button class="btn delete-task-btn" data-id="${task.id}">Delete</button>
+            <button class="btn done-task-btn" data-id="${task.id}">Done</button>
+          </div>
+        </div>
+      `;
+      taskContainer.insertAdjacentHTML("beforeend", taskHTML);
+    });
+
+    // Add event listeners again after sorting
+    document.querySelectorAll(".edit-task-btn").forEach((button) => {
+      button.addEventListener("click", openEditTask);
+    });
+    document.querySelectorAll(".delete-task-btn").forEach((button) => {
+      button.addEventListener("click", deleteTask);
+    });
+    document.querySelectorAll(".done-task-btn").forEach((btn) => {
+      btn.addEventListener("click", doneTask);
+    });
+  } catch (error) {
+    console.error("Error sorting tasks:", error);
+  }
+};
+
+// Show/Hide Sort Dropdown
+sortBtn.addEventListener("click", () => sortOptions.classList.toggle("hidden"));
+
+// Add event listeners to dropdown options
+document.querySelectorAll(".sort-option").forEach(option => {
+  option.addEventListener("click", (e) => {
+    const criteria = e.target.dataset.sort;
+    sortTasks(criteria);
+    sortOptions.classList.add("hidden");
+  });
+});
 
 // Load tasks on page load
 document.addEventListener("DOMContentLoaded", loadTasks);

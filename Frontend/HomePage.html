@@ -14,21 +14,30 @@
     <header class="header">
       <a href="Pomodoro.html" id="back-home" class="btn back-btn">Pomodoro</a>
       <h1 class="logo">TaskNest</h1>
-      <button class="btn calendar">Calendar</button>
+      <div class="dropdown">
+        <button class="btn sort-btn" id="sort-btn">Sort By ↓</button>
+        <div class="dropdown-content hidden" id="sort-options">
+          <button class="sort-option" data-sort="due-date">Due Date</button>
+          <button class="sort-option" data-sort="priority">Priority Level</button>
+          <button class="sort-option" data-sort="school">School</button>
+          <button class="sort-option" data-sort="work">Work</button>
+          <button class="sort-option" data-sort="personal">Personal</button>
+          <button class="sort-option" data-sort="other">Other</button>
+        </div>
+      </div>
     </header>
 
     <!-- Task Section -->
     <main class="task-section">
       <div class="task-container">
         <p class="placeholder">Add Your First Task!</p>
-      </div> 
+      </div>
       <button class="add-task-btn" id="open-modal">+</button>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
-      <button class="btn sort-btn">Sort By ↓</button>
-      <button class="btn funfact-btn">Today's Fun Fact</button>
+      <p class="quote">"The journey of a thousand miles begins with one step."</p>
     </footer>
   </div>
 
@@ -63,20 +72,5 @@
   </div>
 
   <script src="HomePage.js"></script>
-
-  <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-            .then(registration => {
-                console.log('Service Worker registered with scope:', registration.scope);
-            })
-            .catch(error => {
-                console.log('Service Worker registration failed:', error);
-            });
-    });
-}
-</script>
-
 </body>
 </html>
