@@ -33,6 +33,9 @@ const loadTasks = async () => {
     const response = await fetch(BACKEND_URL);
     let tasks = await response.json();
 
+    taskContainer.innerHTML = ""; // Clar current tasks
+
+    // ceck if there are tasks or if the task container is empty
     if (tasks.length === 0) {
       taskContainer.innerHTML = `<p class="placeholder">Add Your First Task!</p>`;
     } else {
