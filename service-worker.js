@@ -1,67 +1,55 @@
-// Define the cache name
 const CACHE_NAME = 'study-app-cache-v1';
-
-// List of assets to cache
 const urlsToCache = [
     '/Frontend/HomePage.html',
-    '/Frontend/HomePage.css',
-    '/Frontend/HomePage.js',
     '/Frontend/Pomodoro.html',
+
+    '/Frontend/HomePage.css',
     '/Frontend/Pomodoro.css',
+
+    '/Frontend/HomePage.js',
     '/Frontend/Pomodoro.js',
-    '/manifest.json'
+
 ];
 
-// Install event - caching assets
+// Install the service worker
 self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then(cache => {
-            console.log('Opened cache and caching essential files...');
-            return cache.addAll(urlsToCache);
-        }).catch(err => console.error('Error caching files during install:', err))
+        caches.open(CACHE_NAME)
+            .then(cache => {
+                console.log('Opened cache and caching assets...');
+                return cache.addAll(urlsToCache);
+            })
     );
 });
 
-// Activate event - clean up old caches
+// Fetch requests
+self.addEventListener('fetch', event => {
+    event.respondWith(
+        caches.match(event.request).then(response => {
+            // Return cached response if available, otherwise fetch from network
+            return response || fetch(event.request).catch(() => {
+                // Fallback to HomePage if the request fails (e.g., offline)
+                if (event.request.mode === 'navigate') {
+                    return caches.match('/Frontend/HomePage.html');
+                }
+            });
+        })
+    );
+});
+
+// Activate the service worker
 self.addEventListener('activate', event => {
+    const cacheWhitelist = [CACHE_NAME];
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(
                 cacheNames.map(cacheName => {
-                    if (cacheName !== CACHE_NAME) {
+                    if (!cacheWhitelist.includes(cacheName)) {
                         console.log('Deleting old cache:', cacheName);
                         return caches.delete(cacheName);
                     }
                 })
             );
-        }).catch(err => console.error('Error during cache cleanup:', err))
+        })
     );
-    return self.clients.claim();
-});
-
-// Fetch event - serve cached files or fetch from network
-self.addEventListener('fetch', (event) => {
-    // Only intercept API calls for caching
-    if (event.request.url.includes('/tasks')) {
-        event.respondWith(
-            caches.match(event.request).then((cachedResponse) => {
-                // If we have a cached response, serve it
-                if (cachedResponse) {
-                    return cachedResponse;
-                }
-
-                // Otherwise, fetch from the network
-                return fetch(event.request).then((networkResponse) => {
-                    // Cache the new response
-                    return caches.open(CACHE_NAME).then((cache) => {
-                        cache.put(event.request, networkResponse.clone());
-                        return networkResponse;
-                    });
-                });
-            }).catch((err) => {
-                console.error('Fetch failed, and no cache found:', err);
-                throw err; // Rethrow error for debugging
-            })
-        );
-    }
 });
