@@ -138,9 +138,11 @@ const doneTask = async (e) => {
 // Open modal to edit task
 const openEditTask = async (e) => {
   const taskId = e.target.dataset.id;
-
   try {
     const response = await fetch(`${BACKEND_URL}/${taskId}`);
+    if (!response.ok) {
+      throw new Error(`Error fetching task: ${response.statusText}`);
+    }
     const task = await response.json();
 
     // Fill modal form with task details
@@ -157,6 +159,7 @@ const openEditTask = async (e) => {
     console.error("Error fetching task:", error);
   }
 };
+
 
 // Sort tasks based on the selected criterion
 const sortTasks = async (criteria) => {

@@ -2,13 +2,10 @@ const CACHE_NAME = 'study-app-cache-v1';
 const urlsToCache = [
     '/Frontend/HomePage.html',
     '/Frontend/Pomodoro.html',
-
     '/Frontend/HomePage.css',
     '/Frontend/Pomodoro.css',
-
     '/Frontend/HomePage.js',
     '/Frontend/Pomodoro.js',
-
 ];
 
 // Install the service worker
@@ -21,21 +18,23 @@ self.addEventListener('install', event => {
             })
     );
 });
-
-// Fetch requests
 self.addEventListener('fetch', event => {
-    event.respondWith(
+    if (event.request.url.includes('/tasks')) {
+      event.respondWith(fetch(event.request)); 
+    } else {
+      event.respondWith(
         caches.match(event.request).then(response => {
-            // Return cached response if available, otherwise fetch from network
-            return response || fetch(event.request).catch(() => {
-                // Fallback to HomePage if the request fails (e.g., offline)
-                if (event.request.mode === 'navigate') {
-                    return caches.match('/Frontend/HomePage.html');
-                }
-            });
+          return response || fetch(event.request).catch(() => {
+            if (event.request.mode === 'navigate') {
+              return caches.match('/Frontend/HomePage.html');
+            }
+          });
         })
-    );
-});
+      );
+    }
+  });
+  
+  
 
 // Activate the service worker
 self.addEventListener('activate', event => {
