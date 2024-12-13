@@ -33,27 +33,27 @@ const loadTasks = async () => {
     const response = await fetch(BACKEND_URL);
     let tasks = await response.json();
 
-    taskContainer.innerHTML = ""; // Clar current tasks
+    taskContainer.innerHTML = ""; // Clear current tasks
 
-    // ceck if there are tasks or if the task container is empty
+    // Check if there are tasks or if the task container is empty
     if (tasks.length === 0) {
       taskContainer.innerHTML = `<p class="placeholder">Add Your First Task!</p>`;
     } else {
       tasks.forEach((task) => {
         const taskHTML = `
-        <div class="task-item" data-id="${task.id}">
-          <div>
-            <p class="task-name"><strong>${task.name}</strong></p>
-            <p class="task-details">Due: ${task.due_date} | Priority: ${task.priority} | Category: ${task.category}</p>
+          <div class="task-item" data-id="${task.id}">
+            <div>
+              <p class="task-name"><strong>${task.name}</strong></p>
+              <p class="task-details">Due: ${task.due_date} | Priority: ${task.priority} | Category: ${task.category}</p>
+            </div>
+            <div class="task-actions">
+              <button class="btn edit-task-btn" data-id="${task.id}">Edit</button>
+              <button class="btn delete-task-btn" data-id="${task.id}">Delete</button>
+              <button class="btn done-task-btn" data-id="${task.id}">Done</button>
+            </div>
           </div>
-          <div class="task-actions">
-            <button class="btn edit-task-btn" data-id="${task.id}">Edit</button>
-            <button class="btn delete-task-btn" data-id="${task.id}">Delete</button>
-            <button class="btn done-task-btn" data-id="${task.id}">Done</button>
-          </div>
-        </div>
-      `;
-      
+        `;
+        
         taskContainer.insertAdjacentHTML("beforeend", taskHTML);
       });
 
@@ -141,8 +141,14 @@ const openEditTask = async (e) => {
 
   try {
     const response = await fetch(`${BACKEND_URL}/${taskId}`);
-    const task = await response.json();
+    
+    // Check if response is OK
+    if (!response.ok) {
+      throw new Error(`Failed to fetch task with id ${taskId}: ${response.statusText}`);
+    }
 
+    const task = await response.json();
+    
     // Fill modal form with task details
     document.getElementById("task-name").value = task.name;
     document.getElementById("due-date").value = task.due_date;
@@ -155,6 +161,7 @@ const openEditTask = async (e) => {
     modal.classList.remove("hidden");
   } catch (error) {
     console.error("Error fetching task:", error);
+    alert("Error fetching task: " + error.message);
   }
 };
 
