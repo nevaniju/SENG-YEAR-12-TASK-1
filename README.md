@@ -66,3 +66,5 @@ I continued troubleshooting my service worker, but it is still not functioning c
 
 12.12.24
 First, I changed the quote that is displayed in the footer. Second, I fixed a small error where the "Add Your First Task" widget wasn't removed after the first task was added, ensuring the user interface was cleaner once a task had been created.
+
+On 15.12.24, I focused on fixing my service worker. I cross-checked my code with examples from several peers and the reference code on Google Classroom. After thorough comparisons and troubleshooting, I’ve come to believe that the error is not in my code itself, suggesting the issue might lie elsewhere, potentially with the environment or configuration.
