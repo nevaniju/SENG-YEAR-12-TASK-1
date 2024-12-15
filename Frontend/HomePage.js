@@ -229,7 +229,7 @@ const sortTasks = async (criteria) => {
 sortBtn.addEventListener("click", () => sortOptions.classList.toggle("hidden"));
 
 // Add event listeners to dropdown options
-document.querySelectorAll(".sort-option").forEach(option => {
+document.querySelectorAll(".sort-option") .forEach(option => {
   option.addEventListener("click", (e) => {
     const criteria = e.target.dataset.sort;
     sortTasks(criteria);
